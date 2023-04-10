@@ -1,0 +1,10 @@
+package-lock.json
+
+node_modules
+
+/.cache
+/build
+/public/build
+.env
+/app/styles/tailwind.css
+.DS_STORE

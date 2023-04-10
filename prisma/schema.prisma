@@ -1,0 +1,36 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["extendedWhereUnique"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum CategoryType {
+  development
+  design
+  business
+  marketing
+}
+
+model Tool {
+  id             String           @id @default(cuid())
+  title          String
+  image          String
+  description    String
+  url            String
+  category       CategoryType
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+  favoritesTools FavoritesTools[]
+}
+
+model FavoritesTools {
+  id     String @id @default(cuid())
+  toolId String
+  tool   Tool   @relation(fields: [toolId], references: [id], onDelete: Cascade)
+
+  @@unique([toolId])
+}
